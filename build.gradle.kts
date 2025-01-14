@@ -15,6 +15,7 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation ("com.h2database:h2:2.1.214")
 
     runtimeOnly("com.mysql:mysql-connector-j:9.1.0")
 
