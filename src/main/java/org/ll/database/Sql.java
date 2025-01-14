@@ -14,6 +14,8 @@ public class Sql {
         this.connection = connection;
     }
 
+
+
     public Sql append(String sql, Object... params) {
         this.sql += " "+ sql;
         for(Object obj: params){
@@ -42,8 +44,17 @@ public class Sql {
         }
         return -1;
     }
-    public Sql genSql() {
-        return this;
-    }
 
+    public int update () {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+            stmt.executeUpdate();
+            return stmt.getUpdateCount();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("SQL 실행 중 오류 발생: " + e.getMessage());
+        }
+    }
 }
